@@ -1,4 +1,4 @@
-# vue-boilerplate
+# Textify
 
 ## Project setup
 ```
