@@ -1,11 +1,11 @@
 <template>
   <v-container class="pa-0" fluid>
     <v-sheet class="mx-auto" elevation="3">
-      <v-layout class="pt-2 px-4">
+      <!-- <v-layout class="pt-2 px-4">
         <v-btn class="primary" @click="$refs.inputUpload.click()">Select Images</v-btn>
-      </v-layout>
+      </v-layout> -->
 
-      <SlideGroup :items="imageUrls" />
+      <SlideGroup :items="imageUrls" @onAddFile="$refs.inputUpload.click()"/>
     </v-sheet>
 
     <input v-show="false" ref="inputUpload" type="file" @change="change" accept="image/*" multiple />
