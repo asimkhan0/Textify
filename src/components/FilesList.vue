@@ -1,13 +1,29 @@
 <template>
   <v-container class="pa-0" fluid>
     <v-sheet class="mx-auto" elevation="3">
-      <!-- <v-layout class="pt-2 px-4">
-        <v-btn class="primary" @click="$refs.inputUpload.click()">Select Images</v-btn>
-      </v-layout> -->
-
-      <SlideGroup :items="imageUrls" @onAddFile="$refs.inputUpload.click()"/>
+      
+      <SlideGroup :items="imageUrls" @onAddFile="$refs.inputUpload.click()" 
+        @progressUpdate="progressUpdate"
+        @onDone="fetchTextOnConversionDone"/>
     </v-sheet>
-
+    <v-progress-linear
+      v-model="progress"
+      height="25"
+      reactive
+    >
+      <strong v-if="progress || progressStatus" class="text-uppercase">{{progressStatus}} - {{ progress }}%</strong>
+    </v-progress-linear>
+    <v-row  class="mx-5">
+      <v-col cols="12">
+        <v-textarea
+          outlined
+          :rows="13"
+          shaped
+          label="Output Text"
+          v-model="textToShow"
+        ></v-textarea>
+      </v-col>
+    </v-row>
     <input v-show="false" ref="inputUpload" type="file" @change="change" accept="image/*" multiple />
   </v-container>
 </template>
@@ -24,7 +40,10 @@ export default {
     return {
       files: [],
       imageFiles: [],
-      imageUrls: []
+      imageUrls: [],
+      progress: 0,
+      progressStatus: '',
+      textToShow: ''
     };
   },
   methods: {
@@ -53,6 +72,13 @@ export default {
           this.imageUrl = "";
         }
       });
+    },
+    progressUpdate (newVal) {
+      this.progress = Math.ceil(newVal.progress * 100)
+      this.progressStatus = newVal.status
+    },
+    fetchTextOnConversionDone (value) {
+      this.textToShow = value
     }
   }
 };

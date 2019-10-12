@@ -10,7 +10,9 @@
     <item-card @click="$emit('onAddFile')" :addButton="true"></item-card>
 
     <v-slide-item v-for="(item, n) in items" :key="n" v-slot:default="{ active, toggle }">
-      <item-card :active="active" @click="toggle" :item="item"></item-card>
+      <item-card :active="active" @click="toggle" :item="item" 
+        @progressUpdate="$emit('progressUpdate', $event)"
+        @onDone="$emit('onDone', $event)"></item-card>
     </v-slide-item>
   </v-slide-group>
 </template>
@@ -37,6 +39,11 @@ export default {
 			showArrows: true,
 			centerActive: null
 		}
-	}
+  },
+  // watch: {
+  //   model (newVal, oldVal) {
+  //     debugger
+  //   }
+  // }
 }
 </script>
