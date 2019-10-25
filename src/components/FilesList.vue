@@ -46,6 +46,16 @@ export default {
       textToShow: ''
     };
   },
+  
+  watch: {
+    imageFiles (newVal) {
+      if (newVal.length) {
+        this.$store.commit('set_have_images', true)
+      } else {
+        this.$store.commit('set_have_images', false)
+      }
+    }
+  },
   methods: {
     change($event) {
       // this.files = Array.from($event.target.files)
