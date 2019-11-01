@@ -1,18 +1,18 @@
 <template>
   <v-container class="pa-0" fluid>
     <v-layout wrap>
-      <FilesList />
+      <Files />
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import FilesList from './FilesList'
+import Files from './Files'
 
 export default {
   name: 'Home',
   components: {
-    FilesList
+    Files
   },
   data: () => ({
   }),
